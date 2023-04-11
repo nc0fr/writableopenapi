@@ -12,7 +12,7 @@ class Example(SpecificationExtension):
     summary: Optional[str] = None
     description: Optional[str] = None
     value: Optional[Any] = None
-    externalValue: Optional[str] = None
+    external_value: Optional[str] = None
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the example into a dictionary."""
@@ -23,7 +23,7 @@ class Example(SpecificationExtension):
             data["description"] = self.description
         if self.value is not None:
             data["value"] = self.value.__str__()
-        if self.externalValue is not None:
-            data["externalValue"] = self.externalValue
+        if self.external_value is not None:
+            data["externalValue"] = self.external_value
 
         return data

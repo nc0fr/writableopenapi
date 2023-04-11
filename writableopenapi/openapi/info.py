@@ -13,7 +13,7 @@ from license import License
 class Info(SpecificationExtension):
     title: str = ""
     description: Optional[str] = None
-    termsOfService: Optional[str] = None
+    terms_of_service: Optional[str] = None
     contact: Optional[Contact] = None
     license: Optional[License] = None
     version: str = ""
@@ -23,8 +23,8 @@ class Info(SpecificationExtension):
         data["title"] = self.title
         if self.description is not None:
             data["description"] = self.description
-        if self.termsOfService is not None:
-            data["termsOfService"] = self.termsOfService
+        if self.terms_of_service is not None:
+            data["termsOfService"] = self.terms_of_service
         if self.contact is not None:
             data["contact"] = self.contact.dump()
         if self.license is not None:

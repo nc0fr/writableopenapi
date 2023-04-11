@@ -12,14 +12,14 @@ from external_documentation import ExternalDocumentation
 class Tag(SpecificationExtension):
     name: str = ""
     description: Optional[str] = None
-    externalDocs: Optional[ExternalDocumentation] = None
+    external_docs: Optional[ExternalDocumentation] = None
 
     def dump(self) -> Dict[str, Any]:
         data = self.extensions
         data["name"] = self.name
         if self.description is not None:
             data["description"] = self.description
-        if self.externalDocs is not None:
-            data["externalDocs"] = self.externalDocs.dump()
+        if self.external_docs is not None:
+            data["externalDocs"] = self.external_docs.dump()
 
         return data

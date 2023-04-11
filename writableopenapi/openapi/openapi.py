@@ -22,7 +22,7 @@ class OpenAPI(SpecificationExtension):
     components: Optional[Components] = None
     security: Optional[List[Dict[str, List[str]]]] = None
     tags: Optional[List[Tag]] = None
-    externalDocs: Optional[ExternalDocumentation] = None
+    external_docs: Optional[ExternalDocumentation] = None
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the OpenAPI specification into a dictionary."""
@@ -40,7 +40,7 @@ class OpenAPI(SpecificationExtension):
             data["security"] = self.security
         if self.tags is not None:
             data["tags"] = [tag.dump() for tag in self.tags]
-        if self.externalDocs is not None:
-            data["externalDocs"] = self.externalDocs.dump()
+        if self.external_docs is not None:
+            data["externalDocs"] = self.external_docs.dump()
 
         return data

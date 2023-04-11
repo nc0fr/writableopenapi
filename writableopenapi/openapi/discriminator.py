@@ -9,12 +9,12 @@ from specification_extension import SpecificationExtension
 
 @dataclass
 class Discriminator(SpecificationExtension):
-    propertyName: str = ""
+    property_name: str = ""
     mapping: Optional[Dict[str, str]] = None
 
     def dump(self) -> Dict[str, Any]:
         data = self.extensions
-        data["propertyName"] = self.propertyName
+        data["propertyName"] = self.property_name
         if self.mapping is not None:
             data["mapping"] = self.mapping
 

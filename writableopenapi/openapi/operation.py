@@ -19,10 +19,10 @@ class Operation(SpecificationExtension):
     tags: Optional[List[str]] = None
     summary: Optional[str] = None
     description: Optional[str] = None
-    externalDocs: Optional[ExternalDocumentation] = None
-    operationId: Optional[str] = None
+    external_docs: Optional[ExternalDocumentation] = None
+    operation_id: Optional[str] = None
     parameters: Optional[List[Union[Reference, Parameter]]] = None
-    requestBody: Optional[Union[Reference, RequestBody]] = None
+    request_body: Optional[Union[Reference, RequestBody]] = None
     responses: Dict[str, Union[Reference, Response]] = {}
     callbacks: Optional[Dict[str, Union[Reference, Callback]]] = None
     deprecated: Optional[bool] = None
@@ -38,16 +38,16 @@ class Operation(SpecificationExtension):
             data["summary"] = self.summary
         if self.description is not None:
             data["description"] = self.description
-        if self.externalDocs is not None:
-            data["externalDocs"] = self.externalDocs.dump()
-        if self.operationId is not None:
-            data["operationId"] = self.operationId
+        if self.external_docs is not None:
+            data["externalDocs"] = self.external_docs.dump()
+        if self.operation_id is not None:
+            data["operationId"] = self.operation_id
         if self.parameters is not None:
             data["parameters"] = [
                 parameter.dump() for parameter in self.parameters
             ]
-        if self.requestBody is not None:
-            data["requestBody"] = self.requestBody.dump()
+        if self.request_body is not None:
+            data["requestBody"] = self.request_body.dump()
         data["responses"] = {
             response: response.dump()
             for response, response in self.responses.items()

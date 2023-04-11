@@ -9,11 +9,11 @@ from specification_extension import SpecificationExtension
 
 @dataclass
 class SecurityRequirement(SpecificationExtension):
-    securityRequirement: Dict[str, List[str]] = {}
+    security_requirement: Dict[str, List[str]] = {}
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the security requirement into a dictionary."""
         data = self.extensions
-        data.update(self.securityRequirement)
+        data.update(self.security_requirement)
 
         return data

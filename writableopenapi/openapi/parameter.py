@@ -18,10 +18,10 @@ class Parameter(SpecificationExtension):
     description: Optional[str] = None
     required: Optional[bool] = None
     deprecated: Optional[bool] = None
-    allowEmptyValue: Optional[bool] = None
+    allow_empty_value: Optional[bool] = None
     style: Optional[str] = None
     explode: Optional[bool] = None
-    allowReserved: Optional[bool] = None
+    allow_reserved: Optional[bool] = None
     schema: Optional[Union[Reference, Schema]] = None
     examples: Optional[Dict[str, Union[Reference, Example]]] = None
     example: Optional[Any] = None
@@ -40,14 +40,14 @@ class Parameter(SpecificationExtension):
             data["required"] = self.required
         if self.deprecated is not None:
             data["deprecated"] = self.deprecated
-        if self.allowEmptyValue is not None:
-            data["allowEmptyValue"] = self.allowEmptyValue
+        if self.allow_empty_value is not None:
+            data["allowEmptyValue"] = self.allow_empty_value
         if self.style is not None:
             data["style"] = self.style
         if self.explode is not None:
             data["explode"] = self.explode
-        if self.allowReserved is not None:
-            data["allowReserved"] = self.allowReserved
+        if self.allow_reserved is not None:
+            data["allowReserved"] = self.allow_reserved
         if self.schema is not None:
             data["schema"] = self.schema.dump()
         if self.examples is not None:

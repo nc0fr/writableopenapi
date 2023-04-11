@@ -12,8 +12,8 @@ from oauth_flow import OAuthFlow
 class OAuthFlows(SpecificationExtension):
     implicit: Optional[OAuthFlow] = None
     password: Optional[OAuthFlow] = None
-    clientCredentials: Optional[OAuthFlow] = None
-    authorizationCode: Optional[OAuthFlow] = None
+    client_credentials: Optional[OAuthFlow] = None
+    authorization_code: Optional[OAuthFlow] = None
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the OAuth flows into a dictionary."""
@@ -22,9 +22,9 @@ class OAuthFlows(SpecificationExtension):
             data["implicit"] = self.implicit.dump()
         if self.password is not None:
             data["password"] = self.password.dump()
-        if self.clientCredentials is not None:
-            data["clientCredentials"] = self.clientCredentials.dump()
-        if self.authorizationCode is not None:
-            data["authorizationCode"] = self.authorizationCode.dump()
+        if self.client_credentials is not None:
+            data["clientCredentials"] = self.client_credentials.dump()
+        if self.authorization_code is not None:
+            data["authorizationCode"] = self.authorization_code.dump()
 
         return data

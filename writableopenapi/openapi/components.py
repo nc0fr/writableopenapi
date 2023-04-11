@@ -23,9 +23,9 @@ class Components(SpecificationExtension):
     responses: Optional[Dict[str, Union[Reference, Response]]] = None
     parameters: Optional[Dict[str, Union[Reference, Parameter]]] = None
     examples: Optional[Dict[str, Union[Reference, Example]]] = None
-    requestBodies: Optional[Dict[str, Union[Reference, RequestBody]]] = None
+    request_bodies: Optional[Dict[str, Union[Reference, RequestBody]]] = None
     headers: Optional[Dict[str, Union[Reference, Header]]] = None
-    securitySchemes: Optional[
+    security_schemes: Optional[
         Dict[str, Union[Reference, SecurityScheme]]
     ] = None
     links: Optional[Dict[str, Union[Reference, Link]]] = None
@@ -44,15 +44,15 @@ class Components(SpecificationExtension):
             }
         if self.examples is not None:
             data["examples"] = {k: v.dump() for k, v in self.examples.items()}
-        if self.requestBodies is not None:
+        if self.request_bodies is not None:
             data["requestBodies"] = {
-                k: v.dump() for k, v in self.requestBodies.items()
+                k: v.dump() for k, v in self.request_bodies.items()
             }
         if self.headers is not None:
             data["headers"] = {k: v.dump() for k, v in self.headers.items()}
-        if self.securitySchemes is not None:
+        if self.security_schemes is not None:
             data["securitySchemes"] = {
-                k: v.dump() for k, v in self.securitySchemes.items()
+                k: v.dump() for k, v in self.security_schemes.items()
             }
         if self.links is not None:
             data["links"] = {k: v.dump() for k, v in self.links.items()}

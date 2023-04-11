@@ -10,24 +10,24 @@ from server import Server
 
 @dataclass
 class Link(SpecificationExtension):
-    operationRef: Optional[str] = None
-    operationId: Optional[str] = None
+    operation_ref: Optional[str] = None
+    operation_id: Optional[str] = None
     parameters: Optional[Dict[str, Any]] = None
-    requestBody: Optional[Any] = None
+    request_body: Optional[Any] = None
     description: Optional[str] = None
     server: Optional[Server] = None
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the link into a dictionary."""
         data = self.extensions
-        if self.operationRef is not None:
-            data["operationRef"] = self.operationRef
-        if self.operationId is not None:
-            data["operationId"] = self.operationId
+        if self.operation_ref is not None:
+            data["operationRef"] = self.operation_ref
+        if self.operation_id is not None:
+            data["operationId"] = self.operation_id
         if self.parameters is not None:
             data["parameters"] = self.parameters
-        if self.requestBody is not None:
-            data["requestBody"] = self.requestBody
+        if self.request_body is not None:
+            data["requestBody"] = self.request_body
         if self.description is not None:
             data["description"] = self.description
 

@@ -15,9 +15,9 @@ class SecurityScheme(SpecificationExtension):
     name: Optional[str] = None
     in_: Optional[str] = None
     scheme: Optional[str] = None
-    bearerFormat: Optional[str] = None
+    bearer_format: Optional[str] = None
     flows: Optional[OAuthFlows] = None
-    openIdConnectUrl: Optional[str] = None
+    open_id_connect_url: Optional[str] = None
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the security scheme into a dictionary."""
@@ -31,11 +31,11 @@ class SecurityScheme(SpecificationExtension):
             data["in"] = self.in_
         if self.scheme is not None:
             data["scheme"] = self.scheme
-        if self.bearerFormat is not None:
-            data["bearerFormat"] = self.bearerFormat
+        if self.bearer_format is not None:
+            data["bearerFormat"] = self.bearer_format
         if self.flows is not None:
             data["flows"] = self.flows.dump()
-        if self.openIdConnectUrl is not None:
-            data["openIdConnectUrl"] = self.openIdConnectUrl
+        if self.open_id_connect_url is not None:
+            data["openIdConnectUrl"] = self.open_id_connect_url
 
         return data
