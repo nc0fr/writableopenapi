@@ -39,8 +39,8 @@ jobs:
           pip install -r requirements.txt
       - name: Checking style
         run: |
-          shell tools/py/fmt_dry.sh
+          ./tools/py/fmt_dry.sh
       - name: Checking licenses
         run: |
-          shell tools/common/install_addlicense.sh
-          shell tools/common/licenses_dry.sh
+          ./tools/common/install_addlicense.sh
+          ./tools/common/licenses_dry.sh
