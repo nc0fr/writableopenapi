@@ -3,4 +3,4 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-yapf -i -r -p -vv --style=google --recur writableopenapi writableopenapitests
+python -m black -l 80 -t py311 --safe -v writableopenapi writableopenapitests
