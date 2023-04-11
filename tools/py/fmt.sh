@@ -3,4 +3,4 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-python -m black -l 80 -t py311 --safe -v writableopenapi writableopenapitests
+python -m pyink -l 80 -t py311 --safe -v writableopenapi writableopenapitests
