@@ -1,0 +1,50 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+run-name: Continuous Integration
+jobs:
+  ci:
+    name: CI
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+        python_version:
+          - "3.9"
+          - "3.10"
+          - "3.11"
+    runs-on: ${{ matrix.os }}
+    continue-on-error: false
+    timeout-minutes: 5
+    steps:
+      - name: Cloning repository
+        uses: actions/checkouts@v3
+      - uses: actions/setup-go@v4
+        name: Installing Golang
+      - name: Installing Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python_version }}
+          cache: pip
+      - name: Installing dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Running tests
+        run: |
+          python -m pytest
+          python -m pytest --cov=src --cov-report=xml
+      - name: Checking style
+        run: |
+          shell tools/py/fmt_dry.sh
+      - name: Checking licenses
+        run: |
+          shell tools/common/install_addlicense.sh
+          shell tools/common/licenses_dry.sh
