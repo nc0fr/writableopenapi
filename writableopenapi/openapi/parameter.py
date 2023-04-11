@@ -53,7 +53,7 @@ class Parameter(SpecificationExtension):
         if self.examples is not None:
             data["examples"] = {k: v.dump() for k, v in self.examples.items()}
         if self.example is not None:
-            data["example"] = self.example.__str__()
+            data["example"] = str(self.example)
         if self.content is not None:
             data["content"] = {k: v.dump() for k, v in self.content.items()}
 

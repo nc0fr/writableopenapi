@@ -22,7 +22,7 @@ class Example(SpecificationExtension):
         if self.description is not None:
             data["description"] = self.description
         if self.value is not None:
-            data["value"] = self.value.__str__()
+            data["value"] = str(self.value)
         if self.external_value is not None:
             data["externalValue"] = self.external_value
 
