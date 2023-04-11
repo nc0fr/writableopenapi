@@ -7,4 +7,4 @@
 # Dry run of yapf (does not write to files).
 # This is used in CI check for instance.
 
-yapf -d -r -p -vv --style=google --recur writableopenapi writableopenapitests
+python -m pyink -l 80 -t py311 --safe -v --diff --color writableopenapi writableopenapitests
