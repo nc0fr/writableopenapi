@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Dict, Optional
 from specification_extension import SpecificationExtension
 from contact import Contact
@@ -19,8 +19,16 @@ class Info(SpecificationExtension):
     version: str = ""
 
     def dump(self) -> Dict[str, str]:
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        data["title"] = self.title
+        if self.description is not None:
+            data["description"] = self.description
+        if self.termsOfService is not None:
+            data["termsOfService"] = self.termsOfService
+        if self.contact is not None:
+            data["contact"] = self.contact.dump()
+        if self.license is not None:
+            data["license"] = self.license.dump()
+        data["version"] = self.version
+
+        return data

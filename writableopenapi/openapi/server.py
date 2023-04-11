@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 from specification_extension import SpecificationExtension
 from server_variable import ServerVariable
@@ -15,8 +15,11 @@ class Server(SpecificationExtension):
     variables: Optional[Dict[str, ServerVariable]] = None
 
     def dump(self) -> Dict[str, Any]:
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        data["url"] = self.url
+        if self.description is not None:
+            data["description"] = self.description
+        if self.variables is not None:
+            data["variables"] = {k: v.dump() for k, v in self.variables.items()}
+
+        return data

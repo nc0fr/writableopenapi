@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 from specification_extension import SpecificationExtension
 from components import Components
@@ -26,8 +26,21 @@ class OpenAPI(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the OpenAPI specification into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
+        data = self.extensions
+        data["openapi"] = self.openapi
+        data["info"] = self.info.dump()
+        if self.servers is not None:
+            data["servers"] = [server.dump() for server in self.servers]
+        data["paths"] = {
+            path: path_item.dump() for path, path_item in self.paths.items()
         }
+        if self.components is not None:
+            data["components"] = self.components.dump()
+        if self.security is not None:
+            data["security"] = self.security
+        if self.tags is not None:
+            data["tags"] = [tag.dump() for tag in self.tags]
+        if self.externalDocs is not None:
+            data["externalDocs"] = self.externalDocs.dump()
+
+        return data

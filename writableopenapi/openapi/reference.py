@@ -3,7 +3,7 @@
 # license that can be found in the LICENSE file.
 
 from dataclasses import dataclass
-from typing import Dict
+from typing import Dict, Any
 from specification_extension import SpecificationExtension
 
 
@@ -11,5 +11,8 @@ from specification_extension import SpecificationExtension
 class Reference(SpecificationExtension):
     ref: str = ""
 
-    def dump(self) -> Dict[str, str]:
-        return {"$ref": self.ref}
+    def dump(self) -> Dict[str, Any]:
+        data = self.extensions
+        data["$ref"] = self.ref
+
+        return data

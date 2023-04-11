@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Union
 from specification_extension import SpecificationExtension
 from operation import Operation
@@ -28,8 +28,32 @@ class PathItem(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the path item into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.summary is not None:
+            data["summary"] = self.summary
+        if self.description is not None:
+            data["description"] = self.description
+        if self.get is not None:
+            data["get"] = self.get.dump()
+        if self.put is not None:
+            data["put"] = self.put.dump()
+        if self.post is not None:
+            data["post"] = self.post.dump()
+        if self.delete is not None:
+            data["delete"] = self.delete.dump()
+        if self.options is not None:
+            data["options"] = self.options.dump()
+        if self.head is not None:
+            data["head"] = self.head.dump()
+        if self.patch is not None:
+            data["patch"] = self.patch.dump()
+        if self.trace is not None:
+            data["trace"] = self.trace.dump()
+        if self.servers is not None:
+            data["servers"] = [server.dump() for server in self.servers]
+        if self.parameters is not None:
+            data["parameters"] = [
+                parameter.dump() for parameter in self.parameters
+            ]
+
+        return data

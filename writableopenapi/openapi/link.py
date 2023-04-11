@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 from specification_extension import SpecificationExtension
 from server import Server
@@ -19,8 +19,16 @@ class Link(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the link into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.operationRef is not None:
+            data["operationRef"] = self.operationRef
+        if self.operationId is not None:
+            data["operationId"] = self.operationId
+        if self.parameters is not None:
+            data["parameters"] = self.parameters
+        if self.requestBody is not None:
+            data["requestBody"] = self.requestBody
+        if self.description is not None:
+            data["description"] = self.description
+
+        return data

@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Union
 from specification_extension import SpecificationExtension
 from reference import Reference
@@ -15,8 +15,6 @@ class Responses(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the responses into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        data["responses"] = {k: v.dump() for k, v in self.responses.items()}
+        return data

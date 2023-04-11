@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 from specification_extension import SpecificationExtension
 from oauth_flows import OAuthFlows
@@ -21,8 +21,21 @@ class SecurityScheme(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the security scheme into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        data["type"] = self.type
+        if self.description is not None:
+            data["description"] = self.description
+        if self.name is not None:
+            data["name"] = self.name
+        if self.in_ is not None:
+            data["in"] = self.in_
+        if self.scheme is not None:
+            data["scheme"] = self.scheme
+        if self.bearerFormat is not None:
+            data["bearerFormat"] = self.bearerFormat
+        if self.flows is not None:
+            data["flows"] = self.flows.dump()
+        if self.openIdConnectUrl is not None:
+            data["openIdConnectUrl"] = self.openIdConnectUrl
+
+        return data

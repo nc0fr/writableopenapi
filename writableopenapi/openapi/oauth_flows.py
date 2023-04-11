@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 from specification_extension import SpecificationExtension
 from oauth_flow import OAuthFlow
@@ -17,8 +17,14 @@ class OAuthFlows(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the OAuth flows into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.implicit is not None:
+            data["implicit"] = self.implicit.dump()
+        if self.password is not None:
+            data["password"] = self.password.dump()
+        if self.clientCredentials is not None:
+            data["clientCredentials"] = self.clientCredentials.dump()
+        if self.authorizationCode is not None:
+            data["authorizationCode"] = self.authorizationCode.dump()
+
+        return data

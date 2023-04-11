@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
 from specification_extension import SpecificationExtension
 from reference import Reference
@@ -20,8 +20,14 @@ class MediaType(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the media type into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.schema is not None:
+            data["schema"] = self.schema.dump()
+        if self.example is not None:
+            data["example"] = self.example.__str__()
+        if self.examples is not None:
+            data["examples"] = {k: v.dump() for k, v in self.examples.items()}
+        if self.encoding is not None:
+            data["encoding"] = {k: v.dump() for k, v in self.encoding.items()}
+
+        return data

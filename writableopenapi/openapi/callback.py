@@ -2,20 +2,20 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
-from typing import Any, Dict
+from dataclasses import dataclass
+from typing import Any, Dict, Union
 from specification_extension import SpecificationExtension
 from path_item import PathItem
+from reference import Reference
 
 
 @dataclass
 class Callback(SpecificationExtension):
-    pathItem: PathItem = PathItem()
+    paths: Dict[str, Union[Reference, PathItem]] = {}
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the callback into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        data.update({k: v.dump() for k, v in self.paths.items()})
+
+        return data

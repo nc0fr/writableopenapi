@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
 from specification_extension import SpecificationExtension
 from header import Header
@@ -19,8 +19,16 @@ class Encoding(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the encoding into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.contentType is not None:
+            data["contentType"] = self.contentType
+        if self.headers is not None:
+            data["headers"] = {k: v.dump() for k, v in self.headers.items()}
+        if self.style is not None:
+            data["style"] = self.style
+        if self.explode is not None:
+            data["explode"] = self.explode
+        if self.allowReserved is not None:
+            data["allowReserved"] = self.allowReserved
+
+        return data

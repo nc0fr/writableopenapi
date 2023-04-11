@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 from specification_extension import SpecificationExtension
 
@@ -16,8 +16,16 @@ class XML(SpecificationExtension):
     wrapped: Optional[bool] = None
 
     def dump(self) -> Dict[str, Any]:
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.name is not None:
+            data["name"] = self.name
+        if self.namespace is not None:
+            data["namespace"] = self.namespace
+        if self.prefix is not None:
+            data["prefix"] = self.prefix
+        if self.attribute is not None:
+            data["attribute"] = self.attribute
+        if self.wrapped is not None:
+            data["wrapped"] = self.wrapped
+
+        return data

@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Dict, Optional
 from specification_extension import SpecificationExtension
 
@@ -13,8 +13,9 @@ class ExternalDocumentation(SpecificationExtension):
     url: str = ""
 
     def dump(self) -> Dict[str, str]:
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.description is not None:
+            data["description"] = self.description
+        data["url"] = self.url
+
+        return data

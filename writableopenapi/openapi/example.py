@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 from specification_extension import SpecificationExtension
 
@@ -16,8 +16,14 @@ class Example(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the example into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.summary is not None:
+            data["summary"] = self.summary
+        if self.description is not None:
+            data["description"] = self.description
+        if self.value is not None:
+            data["value"] = self.value.__str__()
+        if self.externalValue is not None:
+            data["externalValue"] = self.externalValue
+
+        return data

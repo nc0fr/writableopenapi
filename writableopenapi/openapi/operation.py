@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Union
 from specification_extension import SpecificationExtension
 from callback import Callback
@@ -31,8 +31,37 @@ class Operation(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the operation into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
+        data = self.extensions
+        if self.tags is not None:
+            data["tags"] = self.tags
+        if self.summary is not None:
+            data["summary"] = self.summary
+        if self.description is not None:
+            data["description"] = self.description
+        if self.externalDocs is not None:
+            data["externalDocs"] = self.externalDocs.dump()
+        if self.operationId is not None:
+            data["operationId"] = self.operationId
+        if self.parameters is not None:
+            data["parameters"] = [
+                parameter.dump() for parameter in self.parameters
+            ]
+        if self.requestBody is not None:
+            data["requestBody"] = self.requestBody.dump()
+        data["responses"] = {
+            response: response.dump()
+            for response, response in self.responses.items()
         }
+        if self.callbacks is not None:
+            data["callbacks"] = {
+                callback: callback.dump()
+                for callback, callback in self.callbacks.items()
+            }
+        if self.deprecated is not None:
+            data["deprecated"] = self.deprecated
+        if self.security is not None:
+            data["security"] = self.security
+        if self.servers is not None:
+            data["servers"] = [server.dump() for server in self.servers]
+
+        return data

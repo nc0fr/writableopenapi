@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
 from specification_extension import SpecificationExtension
 from callback import Callback
@@ -33,8 +33,30 @@ class Components(SpecificationExtension):
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the components into a dictionary."""
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        if self.schemas is not None:
+            data["schemas"] = {k: v.dump() for k, v in self.schemas.items()}
+        if self.responses is not None:
+            data["responses"] = {k: v.dump() for k, v in self.responses.items()}
+        if self.parameters is not None:
+            data["parameters"] = {
+                k: v.dump() for k, v in self.parameters.items()
+            }
+        if self.examples is not None:
+            data["examples"] = {k: v.dump() for k, v in self.examples.items()}
+        if self.requestBodies is not None:
+            data["requestBodies"] = {
+                k: v.dump() for k, v in self.requestBodies.items()
+            }
+        if self.headers is not None:
+            data["headers"] = {k: v.dump() for k, v in self.headers.items()}
+        if self.securitySchemes is not None:
+            data["securitySchemes"] = {
+                k: v.dump() for k, v in self.securitySchemes.items()
+            }
+        if self.links is not None:
+            data["links"] = {k: v.dump() for k, v in self.links.items()}
+        if self.callbacks is not None:
+            data["callbacks"] = {k: v.dump() for k, v in self.callbacks.items()}
+
+        return data

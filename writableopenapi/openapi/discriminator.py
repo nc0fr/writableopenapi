@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass
 from typing import Any, Dict, Optional
 from specification_extension import SpecificationExtension
 
@@ -13,8 +13,9 @@ class Discriminator(SpecificationExtension):
     mapping: Optional[Dict[str, str]] = None
 
     def dump(self) -> Dict[str, Any]:
-        return {
-            field.name: getattr(self, field.name)
-            for field in fields(self)
-            if getattr(self, field.name) is not None
-        }
+        data = self.extensions
+        data["propertyName"] = self.propertyName
+        if self.mapping is not None:
+            data["mapping"] = self.mapping
+
+        return data
