@@ -53,16 +53,45 @@ class Int(IntoSchema):
 
 
 @dataclass
+class Int8(Int):
+    """
+    An int8.
+    """
+
+    def __post_init__(self):
+        self.format_ = "int8"
+        self.maximum = 127
+        self.minimum = -128
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
+class Int16(Int):
+    """
+    An int16.
+    """
+
+    def __post_init__(self):
+        self.format_ = "int16"
+        self.maximum = 32767
+        self.minimum = -32768
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
 class Int32(Int):
     """
     An int32.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "int32"
-        return schema
+    def __post_init__(self):
+        self.format_ = "int32"
+        self.maximum = 2147483647
+        self.minimum = -2147483648
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
 
 
 @dataclass
@@ -71,11 +100,96 @@ class Int64(Int):
     An int64.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "int64"
-        return schema
+    def __post_init__(self):
+        self.format_ = "int64"
+        self.maximum = 9223372036854775807
+        self.minimum = -9223372036854775808
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
+class Int128(Int):
+    """
+    An int128.
+    """
+
+    def __post_init__(self):
+        self.format_ = "int128"
+        self.maximum = 170141183460469231731687303715884105727
+        self.minimum = -170141183460469231731687303715884105728
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
+class UInt8(Int):
+    """
+    An uint8.
+    """
+
+    def __post_init__(self):
+        self.format_ = "uint8"
+        self.maximum = 255
+        self.minimum = 0
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
+class UInt16(Int):
+    """
+    An uint16.
+    """
+
+    def __post_init__(self):
+        self.format_ = "uint16"
+        self.maximum = 65535
+        self.minimum = 0
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
+class UInt32(Int):
+    """
+    An uint32.
+    """
+
+    def __post_init__(self):
+        self.format_ = "uint32"
+        self.maximum = 4294967295
+        self.minimum = 0
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
+class UInt64(Int):
+    """
+    An uint64.
+    """
+
+    def __post_init__(self):
+        self.format_ = "uint64"
+        self.maximum = 18446744073709551615
+        self.minimum = 0
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
+
+
+@dataclass
+class UInt128(Int):
+    """
+    An uint128.
+    """
+
+    def __post_init__(self):
+        self.format_ = "uint128"
+        self.maximum = 340282366920938463463374607431768211455
+        self.minimum = 0
+        self.exclusive_maximum = False
+        self.exclusive_minimum = False
 
 
 @dataclass
@@ -127,11 +241,8 @@ class Float(Number):
     A float.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "float"
-        return schema
+    def __post_init__(self):
+        self.format_ = "float"
 
 
 @dataclass
@@ -140,17 +251,19 @@ class Double(Number):
     A double.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "double"
-        return schema
+    def __post_init__(self):
+        self.format_ = "double"
 
 
 @dataclass
 class String(IntoSchema):
     """
     A string.
+    """
+
+    format_: str = ""
+    """
+    The format of this string.
     """
 
     minimum_length: Optional[int] = None
@@ -175,6 +288,7 @@ class String(IntoSchema):
             min_length=self.minimum_length,
             max_length=self.maximum_length,
             pattern=self.pattern,
+            format=self.format_,
         )
 
 
@@ -185,12 +299,9 @@ class Date(String):
     e.g. 2017-07-21
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "date"
-        schema.pattern = r"^\d{4}-\d{2}-\d{2}$"
-        return schema
+    def __post_init__(self):
+        self.format_ = "date"
+        self.pattern = r"^\d{4}-\d{2}-\d{2}$"
 
 
 @dataclass
@@ -200,12 +311,9 @@ class DateTime(String):
     e.g. 2017-07-21T17:32:28Z
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "date-time"
-        schema.pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$"
-        return schema
+    def __post_init__(self):
+        self.format_ = "date-time"
+        self.pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$"
 
 
 @dataclass
@@ -214,11 +322,8 @@ class Password(String):
     A password.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "password"
-        return schema
+    def __post_init__(self):
+        self.format_ = "password"
 
 
 @dataclass
@@ -227,11 +332,8 @@ class Byte(String):
     A byte.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "byte"
-        return schema
+    def __post_init__(self):
+        self.format_ = "byte"
 
 
 @dataclass
@@ -240,11 +342,8 @@ class Binary(String):
     A binary.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "binary"
-        return schema
+    def __post_init__(self):
+        self.format_ = "binary"
 
 
 @dataclass
@@ -253,11 +352,8 @@ class Email(String):
     An email.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "email"
-        return schema
+    def __post_init__(self):
+        self.format_ = "email"
 
 
 @dataclass
@@ -266,11 +362,9 @@ class UUID(String):
     A UUID.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "uuid"
-        return schema
+    def __post_init__(self):
+        self.format_ = "uuid"
+        self.pattern = r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
 
 
 @dataclass
@@ -279,11 +373,8 @@ class URI(String):
     A URI.
     """
 
-    @override
-    def into_schema(self) -> Schema:
-        schema = super().into_schema()
-        schema.format = "uri"
-        return schema
+    def __post_init__(self):
+        self.format_ = "uri"
 
 
 @dataclass
