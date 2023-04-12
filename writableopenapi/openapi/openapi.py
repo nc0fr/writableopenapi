@@ -11,6 +11,7 @@ from info import Info
 from path_item import PathItem
 from server import Server
 from tag import Tag
+from security_requirement import SecurityRequirement
 
 
 @dataclass
@@ -20,7 +21,7 @@ class OpenAPI(SpecificationExtension):
     servers: Optional[List[Server]] = None
     paths: Dict[str, PathItem] = {}
     components: Optional[Components] = None
-    security: Optional[List[Dict[str, List[str]]]] = None
+    security: Optional[List[SecurityRequirement]] = None
     tags: Optional[List[Tag]] = None
     external_docs: Optional[ExternalDocumentation] = None
 

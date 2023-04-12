@@ -3,7 +3,8 @@
 # license that can be found in the LICENSE file.
 
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Self, Union
+from typing_extensions import override
 from specification_extension import SpecificationExtension
 from reference import Reference
 from discriminator import Discriminator
@@ -16,9 +17,9 @@ class Schema(SpecificationExtension):
     title: Optional[str] = None
     multiple_of: Optional[float] = None
     maximum: Optional[float] = None
-    exclusive_maximum: Optional[float] = None
+    exclusive_maximum: Optional[bool] = None
     minimum: Optional[float] = None
-    exclusive_minimum: Optional[float] = None
+    exclusive_minimum: Optional[bool] = None
     max_length: Optional[int] = None
     min_length: Optional[int] = None
     pattern: Optional[str] = None
