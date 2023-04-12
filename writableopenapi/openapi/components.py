@@ -4,7 +4,7 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
-from specification_extension import SpecificationExtension
+
 from callback import Callback
 from example import Example
 from header import Header
@@ -15,6 +15,7 @@ from request_body import RequestBody
 from response import Response
 from schema import Schema
 from security_scheme import SecurityScheme
+from specification_extension import SpecificationExtension
 
 
 @dataclass

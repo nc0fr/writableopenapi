@@ -4,8 +4,9 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
-from specification_extension import SpecificationExtension
+
 from media_type import MediaType
+from specification_extension import SpecificationExtension
 
 
 @dataclass

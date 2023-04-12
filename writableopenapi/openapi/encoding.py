@@ -4,9 +4,10 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
-from specification_extension import SpecificationExtension
+
 from header import Header
 from reference import Reference
+from specification_extension import SpecificationExtension
 
 
 @dataclass

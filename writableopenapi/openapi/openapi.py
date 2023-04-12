@@ -4,14 +4,15 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
-from specification_extension import SpecificationExtension
+
 from components import Components
 from external_documentation import ExternalDocumentation
 from info import Info
 from path_item import PathItem
-from server import Server
-from tag import Tag
 from security_requirement import SecurityRequirement
+from server import Server
+from specification_extension import SpecificationExtension
+from tag import Tag
 
 
 @dataclass

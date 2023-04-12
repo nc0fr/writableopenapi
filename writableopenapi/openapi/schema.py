@@ -4,12 +4,14 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Self, Union
-from typing_extensions import override
-from specification_extension import SpecificationExtension
-from reference import Reference
+
 from discriminator import Discriminator
-from .xml import XML
 from external_documentation import ExternalDocumentation
+from reference import Reference
+from specification_extension import SpecificationExtension
+from typing_extensions import override
+
+from .xml import XML
 
 
 @dataclass

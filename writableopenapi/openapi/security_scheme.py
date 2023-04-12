@@ -4,8 +4,9 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
-from specification_extension import SpecificationExtension
+
 from oauth_flows import OAuthFlows
+from specification_extension import SpecificationExtension
 
 
 @dataclass

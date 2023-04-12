@@ -4,8 +4,9 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
-from specification_extension import SpecificationExtension
+
 from server import Server
+from specification_extension import SpecificationExtension
 
 
 @dataclass

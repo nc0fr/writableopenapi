@@ -28,8 +28,9 @@ from responses import Responses as Responses
 from schema import Schema as Schema
 from security_requirement import SecurityRequirement as SecurityRequirement
 from security_scheme import SecurityScheme as SecurityScheme
-from server_variable import ServerVariable as ServerVariable
 from server import Server as Server
+from server_variable import ServerVariable as ServerVariable
 from specification_extension import SpecificationExtension as SpecificationExtension
 from tag import Tag as Tag
+
 from .xml import XML as XML

@@ -4,11 +4,12 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Union
-from specification_extension import SpecificationExtension
+
 from operation import Operation
-from server import Server
-from reference import Reference
 from parameter import Parameter
+from reference import Reference
+from server import Server
+from specification_extension import SpecificationExtension
 
 
 @dataclass

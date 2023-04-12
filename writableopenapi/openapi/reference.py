@@ -3,7 +3,8 @@
 # license that can be found in the LICENSE file.
 
 from dataclasses import dataclass
-from typing import Dict, Any
+from typing import Any, Dict
+
 from specification_extension import SpecificationExtension
 
 
