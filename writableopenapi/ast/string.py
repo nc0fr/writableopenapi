@@ -100,7 +100,7 @@ class Email(String):
 
 
 @dataclass
-class Uuid(String):
+class UUID(String):
     """
     A UUID.
     """
@@ -110,7 +110,7 @@ class Uuid(String):
 
 
 @dataclass
-class Uuid3(String):
+class UUID3(String):
     """
     A UUID version 3.
     """
@@ -123,7 +123,7 @@ class Uuid3(String):
 
 
 @dataclass
-class Uuid4(String):
+class UUID4(String):
     """
     A UUID version 4.
     """
@@ -136,7 +136,7 @@ class Uuid4(String):
 
 
 @dataclass
-class Uuid5(String):
+class UUID5(String):
     """
     A UUID version 5.
     """
@@ -149,7 +149,7 @@ class Uuid5(String):
 
 
 @dataclass
-class Uri(String):
+class URI(String):
     """
     A URI.
     """
@@ -170,7 +170,7 @@ class Hostname(String):
 
 
 @dataclass
-class Ipv4(String):
+class IPv4(String):
     """
     An IPv4 address.
     """
@@ -181,7 +181,7 @@ class Ipv4(String):
 
 
 @dataclass
-class Ipv6(String):
+class IPv6(String):
     """
     An IPv6 address.
     """
@@ -192,7 +192,7 @@ class Ipv6(String):
 
 
 @dataclass
-class Iri(String):
+class IRI(String):
     """
     An IRI.
     """
@@ -213,7 +213,7 @@ class HexColor(String):
 
 
 @dataclass
-class Regex(String):
+class RegEx(String):
     """
     A regular expression.
     """
@@ -224,7 +224,7 @@ class Regex(String):
 
 
 @dataclass
-class RgbColor(String):
+class RGB(String):
     """
     An RGB color.
     """
@@ -235,7 +235,7 @@ class RgbColor(String):
 
 
 @dataclass
-class RgbaColor(String):
+class RGBA(String):
     """
     An RGBA color.
     """
@@ -246,7 +246,7 @@ class RgbaColor(String):
 
 
 @dataclass
-class HslColor(String):
+class HSL(String):
     """
     An HSL color.
     """
@@ -257,7 +257,7 @@ class HslColor(String):
 
 
 @dataclass
-class HslaColor(String):
+class HSLA(String):
     """
     An HSLA color.
     """
@@ -268,7 +268,7 @@ class HslaColor(String):
 
 
 @dataclass
-class HsvColor(String):
+class HSV(String):
     """
     An HSV color.
     """
@@ -279,7 +279,7 @@ class HsvColor(String):
 
 
 @dataclass
-class HsvaColor(String):
+class HSVA(String):
     """
     An HSVA color.
     """
@@ -301,7 +301,7 @@ class CreditCard(String):
 
 
 @dataclass
-class Isbn(String):
+class ISBN(String):
     """
     An ISBN.
     """
@@ -312,7 +312,7 @@ class Isbn(String):
 
 
 @dataclass
-class Isbn10(String):
+class ISBN10(String):
     """
     An ISBN-10.
     """
@@ -323,7 +323,7 @@ class Isbn10(String):
 
 
 @dataclass
-class Isbn13(String):
+class ISBN13(String):
     """
     An ISBN-13.
     """
@@ -334,7 +334,7 @@ class Isbn13(String):
 
 
 @dataclass
-class JsonSchema:
+class JSONSchema:
     """
     A JSON Schema.
     """
@@ -344,7 +344,7 @@ class JsonSchema:
 
 
 @dataclass
-class Cidr(String):
+class CIDR(String):
     """
     A CIDR.
     """
@@ -355,7 +355,7 @@ class Cidr(String):
 
 
 @dataclass
-class Cidrv4(String):
+class CIDRv4(String):
     """
     A CIDRv4.
     """
@@ -366,7 +366,7 @@ class Cidrv4(String):
 
 
 @dataclass
-class Cidrv6(String):
+class CIDRv6(String):
     """
     A CIDRv6.
     """
@@ -377,7 +377,7 @@ class Cidrv6(String):
 
 
 @dataclass
-class MacAddress(String):
+class MAC(String):
     """
     A MAC address.
     """
@@ -388,7 +388,7 @@ class MacAddress(String):
 
 
 @dataclass
-class Mime(String):
+class MIME(String):
     """
     A MIME type.
     """
@@ -451,15 +451,4 @@ class Language(String):
 
     def __post_init__(self):
         self.format_ = "language"
-        self.pattern = r"^[a-zA-Z]{2}$"
-
-
-@dataclass
-class LanguageCode(String):
-    """
-    A language code.
-    """
-
-    def __post_init__(self):
-        self.format_ = "language-code"
         self.pattern = r"^[a-zA-Z]{2}$"
