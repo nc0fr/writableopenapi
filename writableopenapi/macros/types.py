@@ -377,3 +377,31 @@ class Object(IntoSchema):
             min_properties=self.minimum_length,
             max_properties=self.maximum_length,
         )
+
+
+@dataclass
+class Enum(IntoSchema):
+    """
+    An enum.
+    """
+
+    values: List[IntoSchema]
+    """
+    The values of this enum.
+    """
+
+    default: Optional[IntoSchema] = None
+    """
+    The default value of this enum.
+    """
+
+    nullable: bool = False
+
+    @override
+    def into_schema(self) -> Schema:
+        return Schema(
+            type="string",
+            enum=self.values,
+            default=self.default,
+            nullable=self.nullable,
+        )
