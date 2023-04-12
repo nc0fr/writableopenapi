@@ -4,11 +4,15 @@
 
 from dataclasses import dataclass
 from typing import Dict, Any
+from specification_extension import SpecificationExtension
 
 
 @dataclass
-class Reference:
+class Reference(SpecificationExtension):
     ref: str = ""
 
     def dump(self) -> Dict[str, Any]:
-        return {"$ref": self.ref}
+        data = self.extensions
+        data["$ref"] = self.ref
+
+        return data

@@ -4,11 +4,12 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
+from specification_extension import SpecificationExtension
 from oauth_flows import OAuthFlows
 
 
 @dataclass
-class SecurityScheme:
+class SecurityScheme(SpecificationExtension):
     type: str = ""
     description: Optional[str] = None
     name: Optional[str] = None
@@ -20,7 +21,7 @@ class SecurityScheme:
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the security scheme into a dictionary."""
-        data = {}
+        data = self.extensions
         data["type"] = self.type
         if self.description is not None:
             data["description"] = self.description
