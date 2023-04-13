@@ -4,9 +4,10 @@
 
 from dataclasses import dataclass
 from typing import Dict, Optional
-from specification_extension import SpecificationExtension
+
 from contact import Contact
 from license import License
+from specification_extension import SpecificationExtension
 
 
 @dataclass

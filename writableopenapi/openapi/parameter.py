@@ -4,11 +4,12 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
-from specification_extension import SpecificationExtension
+
 from example import Example
+from media_type import MediaType
 from reference import Reference
 from schema import Schema
-from media_type import MediaType
+from specification_extension import SpecificationExtension
 
 
 @dataclass

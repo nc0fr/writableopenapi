@@ -4,12 +4,14 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
-from specification_extension import SpecificationExtension
+
 from components import Components
 from external_documentation import ExternalDocumentation
 from info import Info
 from path_item import PathItem
+from security_requirement import SecurityRequirement
 from server import Server
+from specification_extension import SpecificationExtension
 from tag import Tag
 
 
@@ -20,7 +22,7 @@ class OpenAPI(SpecificationExtension):
     servers: Optional[List[Server]] = None
     paths: Dict[str, PathItem] = {}
     components: Optional[Components] = None
-    security: Optional[List[Dict[str, List[str]]]] = None
+    security: Optional[List[SecurityRequirement]] = None
     tags: Optional[List[Tag]] = None
     external_docs: Optional[ExternalDocumentation] = None
 

@@ -4,8 +4,9 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict
-from specification_extension import SpecificationExtension
+
 from path_item import PathItem
+from specification_extension import SpecificationExtension
 
 
 @dataclass

@@ -4,6 +4,7 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
+
 from specification_extension import SpecificationExtension
 
 

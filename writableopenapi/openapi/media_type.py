@@ -4,11 +4,12 @@
 
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
-from specification_extension import SpecificationExtension
+
+from encoding import Encoding
+from example import Example
 from reference import Reference
 from schema import Schema
-from example import Example
-from encoding import Encoding
+from specification_extension import SpecificationExtension
 
 
 @dataclass
