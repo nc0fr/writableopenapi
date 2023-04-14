@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from openapi import Schema
+from writableopenapi.openapi import Schema
 
 
 def one_of(*one_of: Schema) -> Schema:

@@ -2,13 +2,13 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, Union, Optional, List, Union, Self
 
 
 @dataclass
 class SpecificationExtension:
-    extensions: Dict[str, Any] = {}
+    extensions: Dict[str, Any] = field(default_factory=dict)
     """Additional properties, names should be prefixed with `x-`."""
 
     def dump(self) -> Dict[str, Any]:
@@ -17,7 +17,9 @@ class SpecificationExtension:
 
 @dataclass
 class Callback(SpecificationExtension):
-    paths: Dict[str, Union["Reference", "PathItem"]] = {}
+    paths: Dict[str, Union["Reference", "PathItem"]] = field(
+        default_factory=dict
+    )
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the callback into a dictionary."""
@@ -138,6 +140,12 @@ class Example(SpecificationExtension):
     value: Optional[Any] = None
     external_value: Optional[str] = None
 
+    def __post_init__(self):
+        if self.value is not None and self.external_value is not None:
+            raise ValueError(
+                "Example cannot have both a value and an external value."
+            )
+
     def dump(self) -> Dict[str, Any]:
         """Dumps the example into a dictionary."""
         data = self.extensions
@@ -241,6 +249,10 @@ class License(SpecificationExtension):
     url: Optional[str] = None
     identifier: Optional[str] = None
 
+    def __post_init__(self):
+        if self.identifier is not None and self.url is not None:
+            raise ValueError("License can't have both identifier and url.")
+
     def dump(self) -> Dict[str, str]:
         data = self.extensions
         data["name"] = self.name
@@ -260,6 +272,12 @@ class Link(SpecificationExtension):
     request_body: Optional[Any] = None
     description: Optional[str] = None
     server: Optional["Server"] = None
+
+    def __post_init__(self):
+        if self.operation_ref is not None and self.operation_id is not None:
+            raise ValueError(
+                "Link can't have both operation_ref and operation_id."
+            )
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the link into a dictionary."""
@@ -285,6 +303,10 @@ class MediaType(SpecificationExtension):
     examples: Optional[Dict[str, Union["Reference", "Example"]]] = None
     encoding: Optional[Dict[str, "Encoding"]] = None
 
+    def __post_init__(self):
+        if self.examples is not None and self.example is not None:
+            raise ValueError("MediaType can't have both examples and example.")
+
     def dump(self) -> Dict[str, Any]:
         """Dumps the media type into a dictionary."""
         data = self.extensions
@@ -305,7 +327,7 @@ class OAuthFlow(SpecificationExtension):
     authorization_url: Optional[str] = None
     token_url: Optional[str] = None
     refresh_url: Optional[str] = None
-    scopes: Dict[str, str] = {}
+    scopes: Dict[str, str] = field(default_factory=dict)
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the OAuth flow into a dictionary."""
@@ -347,9 +369,9 @@ class OAuthFlows(SpecificationExtension):
 @dataclass
 class OpenAPI(SpecificationExtension):
     openapi: str = "3.0.0"
-    info: "Info" = Info()
+    info: "Info" = field(default_factory=Info)
     servers: Optional[List["Server"]] = None
-    paths: Dict[str, "PathItem"] = {}
+    paths: Dict[str, "PathItem"] = field(default_factory=dict)
     components: Optional["Components"] = None
     security: Optional[List["SecurityRequirement"]] = None
     tags: Optional[List["Tag"]] = None
@@ -368,7 +390,7 @@ class OpenAPI(SpecificationExtension):
         if self.components is not None:
             data["components"] = self.components.dump()
         if self.security is not None:
-            data["security"] = self.security
+            data["security"] = [security.dump() for security in self.security]
         if self.tags is not None:
             data["tags"] = [tag.dump() for tag in self.tags]
         if self.external_docs is not None:
@@ -386,7 +408,9 @@ class Operation(SpecificationExtension):
     operation_id: Optional[str] = None
     parameters: Optional[List[Union["Reference", "Parameter"]]] = None
     request_body: Optional[Union["Reference", "RequestBody"]] = None
-    responses: Dict[str, Union["Reference", "Response"]] = {}
+    responses: Dict[str, Union["Reference", "Response"]] = field(
+        default_factory=dict
+    )
     callbacks: Optional[Dict[str, Union["Reference", "Callback"]]] = None
     deprecated: Optional[bool] = None
     security: Optional[List[Dict[str, List[str]]]] = None
@@ -411,15 +435,9 @@ class Operation(SpecificationExtension):
             ]
         if self.request_body is not None:
             data["requestBody"] = self.request_body.dump()
-        data["responses"] = {
-            response: response.dump()
-            for response, response in self.responses.items()
-        }
+        data["responses"] = {k: v.dump() for k, v in self.responses.items()}
         if self.callbacks is not None:
-            data["callbacks"] = {
-                callback: callback.dump()
-                for callback, callback in self.callbacks.items()
-            }
+            data["callbacks"] = {k: v.dump() for k, v in self.callbacks.items()}
         if self.deprecated is not None:
             data["deprecated"] = self.deprecated
         if self.security is not None:
@@ -445,6 +463,12 @@ class Parameter(SpecificationExtension):
     examples: Optional[Dict[str, Union["Reference", "Example"]]] = None
     example: Optional[Any] = None
     content: Optional[Dict[str, "MediaType"]] = None
+
+    def __post_init__(self) -> None:
+        if self.example is not None and self.examples is not None:
+            raise ValueError(
+                "Parameter cannot have both example and examples defined."
+            )
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the parameter into a dictionary."""
@@ -529,7 +553,7 @@ class PathItem(SpecificationExtension):
 
 @dataclass
 class Paths(SpecificationExtension):
-    paths: Dict[str, "PathItem"] = {}
+    paths: Dict[str, "PathItem"] = field(default_factory=dict)
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the paths into a dictionary."""
@@ -552,7 +576,7 @@ class Reference(SpecificationExtension):
 @dataclass
 class RequestBody(SpecificationExtension):
     description: Optional[str] = None
-    content: Dict[str, "MediaType"] = {}
+    content: Dict[str, "MediaType"] = field(default_factory=dict)
     required: Optional[bool] = None
 
     def dump(self) -> Dict[str, Any]:
@@ -590,7 +614,9 @@ class Response(SpecificationExtension):
 
 @dataclass
 class Responses(SpecificationExtension):
-    responses: Dict[str, Union["Reference", "Response"]] = {}
+    responses: Dict[str, Union["Reference", "Response"]] = field(
+        default_factory=dict
+    )
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the responses into a dictionary."""
@@ -725,14 +751,11 @@ class Schema(SpecificationExtension):
 
 @dataclass
 class SecurityRequirement(SpecificationExtension):
-    security_requirement: Dict[str, List[str]] = {}
+    security_requirement: Dict[str, List[str]] = field(default_factory=dict)
 
     def dump(self) -> Dict[str, Any]:
         """Dumps the security requirement into a dictionary."""
-        data = self.extensions
-        data.update(self.security_requirement)
-
-        return data
+        return {**self.extensions, **self.security_requirement}
 
 
 @dataclass

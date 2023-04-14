@@ -4,8 +4,8 @@
 
 from abc import abstractmethod
 from dataclasses import dataclass
-
-from openapi import (
+from typing_extensions import override
+from writableopenapi.openapi import (
     Callback,
     Example,
     Header,
@@ -18,7 +18,6 @@ from openapi import (
     Schema,
     SecurityScheme,
 )
-from typing_extensions import override
 
 
 @dataclass

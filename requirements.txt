@@ -10,3 +10,4 @@ pluggy==1.0.0
 pyink==23.3.1
 pytest==7.3.0
 pytest-cov==4.0.0
+PyYAML==6.0
