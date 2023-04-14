@@ -2,11 +2,14 @@
     --accent-color: #3ca60e;
 }
 
+html {
+    font-family: sans-serif;
+}
+
 main {
     padding-top: 1rem;
     padding-bottom: 3rem;
-    margin: 1rem 3rem;
-    font-family: sans-serif;
+    margin: 1rem 1rem;
 }
 
 a {
