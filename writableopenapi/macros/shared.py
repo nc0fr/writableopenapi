@@ -5,7 +5,7 @@
 from abc import abstractmethod
 from dataclasses import dataclass
 from typing_extensions import override
-from writableopenapi.openapi import (
+from writableopenapi.openapi.v3_1 import (
     Callback,
     Example,
     Header,

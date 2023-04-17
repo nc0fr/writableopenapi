@@ -46,3 +46,6 @@ jobs:
         run: |
           ./tools/common/install_addlicense.sh
           ./tools/common/licenses_dry.sh
+      - name: Building Python wheel
+        run: |
+          python -m build

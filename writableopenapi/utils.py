@@ -4,7 +4,7 @@
 
 import json
 import yaml
-from writableopenapi.openapi import OpenAPI
+from writableopenapi.openapi.v3_1 import OpenAPI
 
 
 def into_json(api: OpenAPI) -> str:

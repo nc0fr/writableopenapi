@@ -368,7 +368,7 @@ class OAuthFlows(SpecificationExtension):
 
 @dataclass
 class OpenAPI(SpecificationExtension):
-    openapi: str = "3.0.0"
+    openapi: str = "3.1.0"
     info: "Info" = field(default_factory=Info)
     servers: Optional[List["Server"]] = None
     paths: Dict[str, "PathItem"] = field(default_factory=dict)

@@ -4,7 +4,7 @@
 
 from ..writableopenapi.macros.shared import *
 from ..writableopenapi.macros.types import *
-from ..writableopenapi.openapi import *
+from ..writableopenapi.openapi.v3_1 import *
 from ..writableopenapi.utils import into_json, into_yaml, write_file
 
 

@@ -6,4 +6,4 @@
 
 # Requires Google's addlicense: https://github.com/google/addlicense
 
-addlicense -c="Nicolas Paul" -l=bsd -v writableopenapi writableopenapitests tools
+addlicense -c="Nicolas Paul" -l=bsd -v writableopenapi writableopenapitests tools .github

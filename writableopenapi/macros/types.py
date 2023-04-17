@@ -3,7 +3,7 @@
 # license that can be found in the LICENSE file.
 
 from typing import Dict, List, Optional, Union
-from writableopenapi.openapi import Reference, Schema
+from writableopenapi.openapi.v3_1 import Reference, Schema
 
 
 def integer(
