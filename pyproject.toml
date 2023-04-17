@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "writableopenapi"
+version = "1.0.0"
+dependencies = [
+    "PyYAML",
+]
+description = "A script to easily write OpenAPI specifications."
+license = { file = "LICENSE" }
+authors = [
+    { name = "Nicolas Paul", email = "n@nc0.fr"}
+]
+readme = "README.md"
+keywords = [
+    "openapi",
+    "writable",
+    "nicolas",
+    "specification",
+    "dsl",
+    "api",
+    "yaml",
+    "json",
+    "swagger",
+    "oas",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+lint = [
+    "black",
+    "pyink"
+]
+
+[project.urls]
+issues = "https://github.com/n1c00o/writableopenapi/issues"
+repository = "https://github.com/n1c00o/writableopenapi"
+documentation = "https://writableopenapi.nicolaspl.com/"
+homepage = "https://writableopenapi.nicolaspl.com/"
+
+[tool.setuptools]
+py-modules = ["writableopenapi"]
