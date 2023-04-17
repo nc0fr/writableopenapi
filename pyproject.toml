@@ -60,5 +60,6 @@ repository = "https://github.com/n1c00o/writableopenapi"
 documentation = "https://writableopenapi.nicolaspl.com/"
 homepage = "https://writableopenapi.nicolaspl.com/"
 
-[tool.setuptools]
-py-modules = ["writableopenapi"]
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["writableopenapitests"]
