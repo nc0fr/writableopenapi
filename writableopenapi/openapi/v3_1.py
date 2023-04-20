@@ -665,6 +665,11 @@ class Schema(SpecificationExtension):
     example: Optional[Any] = None
     deprecated: Optional[bool] = None
 
+    def __post_init__(self) -> None:
+        """Post init hook."""
+        if self.read_only is not None and self.write_only is not None:
+            raise ValueError("Cannot be both read-only and write-only.")
+
     def dump(self) -> Dict[str, Any]:
         """Dumps the schema into a dictionary."""
         data = self.extensions
